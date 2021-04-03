@@ -13,12 +13,23 @@ class UsersController < ApplicationController
         options = {
             include: [:balances]
         }
-        render json: UserSerializer(user, options)
+        render json: UserSerializer.new(user, options)
     end 
 
     def create 
-        user = User.create(username: params[:username])
-        render json: user 
+        user = User.new(user_params)
+        if user.save 
+            render json: user, except: [:created_at, :updated_at]
+        else 
+            render json: { message: 'User Creation Failure'}
+        end 
     end 
+
+
+    private 
+
+    def user_params 
+        params.require(:user).permit(:username)
+    end
 
 end
