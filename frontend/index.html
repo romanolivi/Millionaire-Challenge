@@ -13,12 +13,22 @@
     <div id="content">
 
       <div id="signup">
-        <form>
-          <h2>Sign up or Login with your username</h2>
-          <input type="text" name="username" placeholder="Username" class="signup-info"><br>
-          <br>
-          <input type="password" name="password" placeholder="Password" class="signup-info"><br>
+        <form class="signin-form">
+          <h2>Enter Your Username Below to Play</h2>
+          <input type="text" name="username" placeholder="Username" id="username"><br>
+          <br> 
+          <button type="submit" id="submit">Submit</button>
         </form>
+      </div>
+
+      <div id="welcome-message">
+        <h2>Welcome to The Millionaire Challenge!</h2>
+        <br>
+        <p>The instructions for this game are simple, you have 10 fill in the blank questions at a time.</p>
+        <p>You will earn $100,000 for each correct answer, but getting a question wrong will result in losing your entire balance and finsihing with a balance of $0.</p>
+        <p>You can choose to end the game once you are satisfied with your balance, or you can go all in to get the Million Dollar Score</p>
+
+        <button type="submit" id="start-game">Start Game</button>
       </div>
 
 

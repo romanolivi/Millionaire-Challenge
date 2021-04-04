@@ -1,0 +1,17 @@
+.header-title {
+    text-align: center;
+}
+
+#content {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#signup {
+    display: block;
+}
+
+#welcome-message {
+    display: none;
+}
