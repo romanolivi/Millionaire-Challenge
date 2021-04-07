@@ -1,11 +1,13 @@
-const BASE_URL = "http://localhost:3000"
-const USER_URL = `${BASE_URL}/users`
-const BALANCE_URL = `${BASE_URL}/balances`
-const LEADERBOARD_URL = `${BASE_URL}/leaderboard`
-const signInForm = document.querySelector('.signin-form')
+const BASE_URL = "http://localhost:3000";
+const USER_URL = `${BASE_URL}/users`;
+const BALANCE_URL = `${BASE_URL}/balances`;
+const LEADERBOARD_URL = `${BASE_URL}/leaderboard`;
+const signInButton = document.querySelector('#sign-submit')
+const logInButton = document.querySelector('#login-submit') 
 const welcomeMessage = document.querySelector('#welcome-message')
 const username = document.getElementById('username')
-let signedIn = false 
+let signedIn = false;
+
 
 class Questions {
     constructor(content, answer) {
@@ -15,21 +17,67 @@ class Questions {
 }
 
 
-signInForm.addEventListener('submit', function(e) {
-    e.preventDefault()
-    fetch(USER_URL, {
+signInButton.addEventListener('submit', function(e) {
+    signIn(e);
+})
+
+logInButton.addEventListener('click', function(e) {
+    logIn(e);
+})
+
+// sign in function
+
+function signIn(e) {
+    e.preventDefault();
+
+    const signInUsername = document.querySelector('#signin-username').value;
+
+    let formData = {
+        username: signInUsername
+    }
+
+    let configObj = {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
         },
-        body: JSON.stringify(username)
-    })
+        body: JSON.stringify(formData)
+    }
+
+    fetch(USER_URL, configObj)
     .then(resp => resp.json())
-    .then(obj => {
-        loggedIn(obj);
+    .then(json => {
+        loggedIn(json);
     })
-})
+}
+
+// log in function
+
+function logIn(e) {
+    e.preventDefault();
+
+    const logInUsername = document.querySelector('#login-username').value;
+
+    let formData = {
+        username: logInUsername
+    }
+
+    let configObj = { 
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+    }
+
+    fetch(USER_URL, configObj)
+    .then(resp => resp.json())
+    .then(json => {
+        loggedIn(json);
+    })
+}
 
 const headerTitle = document.querySelector('.header-title');
 
@@ -72,15 +120,6 @@ function startGame(questions) {
         
     }
 }
-
-function renderQuestion(question) {
-    let h2 = document.createElement('h2')
-    h2.innerText = question.content
-
-    
-}
-
-
 
 
 
