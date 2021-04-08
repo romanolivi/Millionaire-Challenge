@@ -1,9 +1,10 @@
+// const axios = require('axios').default;
 const BASE_URL = "http://localhost:3000";
 const USER_URL = `${BASE_URL}/users`;
 const BALANCE_URL = `${BASE_URL}/balances`;
 const LEADERBOARD_URL = `${BASE_URL}/leaderboard`;
-const signInButton = document.querySelector('#sign-submit')
-const logInButton = document.querySelector('#login-submit') 
+const signInForm = document.querySelector('.signin-form')
+const signInButton = document.querySelector('#signup-submit')
 const welcomeMessage = document.querySelector('#welcome-message')
 const username = document.getElementById('username')
 let signedIn = false;
@@ -17,20 +18,19 @@ class Questions {
 }
 
 
-signInButton.addEventListener('submit', function(e) {
+signInButton.addEventListener('click', function(e) {
     signIn(e);
-})
-
-logInButton.addEventListener('click', function(e) {
-    logIn(e);
+    // e.preventDefault();
+    // console.log(e.target.value);
 })
 
 // sign in function
 
 function signIn(e) {
     e.preventDefault();
+    
 
-    const signInUsername = document.querySelector('#signin-username').value;
+    const signInUsername = document.querySelector('#signup-username').value;
 
     let formData = {
         username: signInUsername
@@ -49,34 +49,14 @@ function signIn(e) {
     .then(resp => resp.json())
     .then(json => {
         loggedIn(json);
+    
     })
-}
-
-// log in function
-
-function logIn(e) {
-    e.preventDefault();
-
-    const logInUsername = document.querySelector('#login-username').value;
-
-    let formData = {
-        username: logInUsername
-    }
-
-    let configObj = { 
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(formData)
-    }
-
-    fetch(USER_URL, configObj)
-    .then(resp => resp.json())
-    .then(json => {
-        loggedIn(json);
+    .catch(function(error) {
+        alert("Fetch response did not succeed");
     })
+
+    // axios.get(USER_URL)
+    //     .then(resp =>console.log(resp))
 }
 
 const headerTitle = document.querySelector('.header-title');
@@ -114,12 +94,120 @@ function shuffleArray(array) {
 
 // Game Function
 
-function startGame(questions) {
-    shuffleArray(questions)
-    for (i = 0; i < 9; i++) {
-        
+
+function display1() {
+    q1.style.display = 'block'
+    for (i = 2; i < 10; i++) {
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
     }
 }
+
+function display2() {
+    q2.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 2) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display3() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 3) { continue; }
+         let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display4() {
+    q1.style.display = 'block'
+    for (i = 2; i < 10; i++) {
+        if (i === 4) { continue; }
+         let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display5() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 5) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';    
+        }
+}
+
+function display6() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 6) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display7() {
+    q1.style.display = 'block'
+    for (i = 2; i < 8; i++) {
+        if (i === 7) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display8() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 8) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display9() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 9) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display10() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 10) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+let balance = document.querySelector('#balance')
+
+function startGame(questions) {
+    const game = document.querySelector('#game');
+    headerTitle.style.display = 'none';
+    welcomeMessage.style.display = 'none';
+    game.style.display = 'block';
+    shuffleArray(questions)
+    for (i = 0; i < 9; i++) {
+        display`${i}`();
+        let q = document.querySelector(`#question-content-${i+1}`);
+        q.innerText = questions[i].content;
+        let input = document.querySelector('#answer')
+        let answerBtn = document.querySelector('#answer-button');
+        answerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            balance.value += 100000
+            // if (input.value === questions[i].answer) {
+            //     balance.value += 100,000
+            // }
+        })
+    }
+}
+
 
 
 
