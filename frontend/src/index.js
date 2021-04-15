@@ -7,7 +7,6 @@ const signInForm = document.querySelector('.signin-form')
 const signInButton = document.querySelector('#signup-submit')
 const welcomeMessage = document.querySelector('#welcome-message')
 const username = document.getElementById('username')
-let signedIn = false;
 
 
 class Questions {
@@ -55,8 +54,6 @@ function signIn(e) {
         alert("Fetch response did not succeed");
     })
 
-    // axios.get(USER_URL)
-    //     .then(resp =>console.log(resp))
 }
 
 const headerTitle = document.querySelector('.header-title');
@@ -77,7 +74,7 @@ const gameBtn = document.querySelector('#start-game');
 
 gameBtn.addEventListener('click', function(e) {
     e.preventDefault();
-    const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe, ringo, anchorage];
+    const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
     startGame(questions);
 })
 
@@ -94,107 +91,41 @@ function shuffleArray(array) {
 
 // Game Function
 
+// function display9() {
+//     q1.style.display = 'block'
+//     for (i = 1; i < 10; i++) {
+//         if (i === 9) { continue; }
+//         let q = document.querySelector(`#question-${i}`);
+//         q.style.display = 'none';
+//     }
+// }
 
-function display1() {
-    q1.style.display = 'block'
-    for (i = 2; i < 10; i++) {
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display2() {
-    q2.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 2) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display3() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 3) { continue; }
-         let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display4() {
-    q1.style.display = 'block'
-    for (i = 2; i < 10; i++) {
-        if (i === 4) { continue; }
-         let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display5() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 5) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';    
-        }
-}
-
-function display6() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 6) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display7() {
-    q1.style.display = 'block'
-    for (i = 2; i < 8; i++) {
-        if (i === 7) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display8() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 8) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display9() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 9) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
-
-function display10() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
-        if (i === 10) { continue; }
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
-    }
-}
 
 let balance = document.querySelector('#balance')
 
-function startGame(questions) {
+function displayGame() {
     const game = document.querySelector('#game');
     headerTitle.style.display = 'none';
     welcomeMessage.style.display = 'none';
     game.style.display = 'block';
-    shuffleArray(questions)
-    for (i = 0; i < 9; i++) {
-        display`${i}`();
-        let q = document.querySelector(`#question-content-${i+1}`);
+}
+
+function displayNum(num) {
+    let que = document.querySelector(`#question-${num}`);
+    que.style.display = 'block';
+    for (i = 1; i <= 10; i++) {
+        if (i === num) { continue; }
+        let other = document.querySelector(`#question-${i}`);
+        other.style.display = 'none';
+    }
+}
+
+function startGame(questions) {
+    displayGame();
+    shuffleArray(questions);
+    for (i = 1; i <= 10; i++) {
+        displayNum(i);
+        let q = document.querySelector(`#question-content-${i}`);
         q.innerText = questions[i].content;
         let input = document.querySelector('#answer')
         let answerBtn = document.querySelector('#answer-button');
@@ -244,8 +175,8 @@ let finland = new Questions("Which country is known as the Land of the Lakes?", 
 let india = new Questions("Which country is the leading producer of bananas?", "India");
 let athena = new Questions("Which Greek Goddess is the Goddess of Wisdom?", "Athena");
 let kobe = new Questions("Who was the famous basketball player who earned the nickname The Black Mamba?", "Kobe Bryant");
-let ringo = new Questions("Which former Beatle narrated the TV adventures of Thomas the Tank Engine?", "Ringo Starr");
-let anchorage = new Questions("Which is the largest city in the USA's largest state?", "Anchorage");
+// let ringo = new Questions("Which former Beatle narrated the TV adventures of Thomas the Tank Engine?", "Ringo Starr");
+// let anchorage = new Questions("Which is the largest city in the USA's largest state?", "Anchorage");
 
 
 
