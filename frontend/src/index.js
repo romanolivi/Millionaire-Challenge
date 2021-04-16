@@ -91,15 +91,94 @@ function shuffleArray(array) {
 
 // Game Function
 
-// function display9() {
-//     q1.style.display = 'block'
-//     for (i = 1; i < 10; i++) {
-//         if (i === 9) { continue; }
-//         let q = document.querySelector(`#question-${i}`);
-//         q.style.display = 'none';
-//     }
-// }
+function display1() {
+    q1.style.display = 'block'
+    for (i = 2; i < 10; i++) {
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
 
+function display2() {
+    q2.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 2) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display3() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 3) { continue; }
+         let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display4() {
+    q1.style.display = 'block'
+    for (i = 2; i < 10; i++) {
+        if (i === 4) { continue; }
+         let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display5() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 5) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';    
+        }
+}
+
+function display6() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 6) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display7() {
+    q1.style.display = 'block'
+    for (i = 2; i < 8; i++) {
+        if (i === 7) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display8() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 8) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display9() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 9) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
+function display10() {
+    q1.style.display = 'block'
+    for (i = 1; i < 10; i++) {
+        if (i === 10) { continue; }
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
 
 let balance = document.querySelector('#balance')
 
@@ -110,28 +189,24 @@ function displayGame() {
     game.style.display = 'block';
 }
 
-function displayNum(num) {
-    let que = document.querySelector(`#question-${num}`);
-    que.style.display = 'block';
-    for (i = 1; i <= 10; i++) {
-        if (i === num) { continue; }
-        let other = document.querySelector(`#question-${i}`);
-        other.style.display = 'none';
-    }
-}
+let score = 0;
 
 function startGame(questions) {
+    console.log(questions[1])
     displayGame();
-    shuffleArray(questions);
+    shuffleArray(questions)
+
     for (i = 1; i <= 10; i++) {
+        let q = questions;
         displayNum(i);
-        let q = document.querySelector(`#question-content-${i}`);
-        q.innerText = questions[i].content;
+        let qs = document.querySelector(`#question-content-${i}`);
+        qs.innerText = q[i].content;
         let input = document.querySelector('#answer')
         let answerBtn = document.querySelector('#answer-button');
         answerBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            balance.value += 100000
+            score += 100000
+            balance.textContent = score;
             // if (input.value === questions[i].answer) {
             //     balance.value += 100,000
             // }
@@ -186,3 +261,13 @@ let kobe = new Questions("Who was the famous basketball player who earned the ni
 // fetch(`${BACKEND_URL}/test`)
 // .then(response => response.json())
 // .then(parsedResponse => console.log(parsedResponse));
+
+// function displayNum(num) {
+//     let que = document.querySelector(`#question-${num}`);
+//     que.style.display = 'block';
+//     for (i = 1; i <= 10; i++) {
+//         if (i === num) { continue; }
+//         let other = document.querySelector(`#question-${i}`);
+//         other.style.display = 'none';
+//     }
+// }
