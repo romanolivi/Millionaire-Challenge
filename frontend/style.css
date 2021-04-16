@@ -19,3 +19,7 @@
 #game {
     display: none;
 }
+
+#failure {
+    display: none;
+}

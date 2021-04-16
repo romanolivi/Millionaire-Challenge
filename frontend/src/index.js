@@ -75,7 +75,8 @@ const gameBtn = document.querySelector('#start-game');
 gameBtn.addEventListener('click', function(e) {
     e.preventDefault();
     const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
-    startGame(questions);
+    shuffleArray(questions);
+    display1();
 })
 
 // Shuffle Question Array 
@@ -89,19 +90,58 @@ function shuffleArray(array) {
     }
 }
 
+// Failure Screen
+
+function failureScreen() {
+    let failure = document.querySelector('#failure');
+    failure.style.display = 'block';
+    
+}
+
 // Game Function
+
+let q1 = document.querySelector('#question-1');
+let q2 = document.querySelector('#question-2');
+let q3 = document.querySelector('#question-3');
+let q4 = document.querySelector('#question-4');
+let q5 = document.querySelector('#question-5');
+let q6 = document.querySelector('#question-6');
+let q7 = document.querySelector('#question-7');
+let q8 = document.querySelector('#question-8');
+let q9 = document.querySelector('#question-9');
+let q10 = document.querySelector('#question-10');
+
+let score = 0;
+
+
 
 function display1() {
     q1.style.display = 'block'
-    for (i = 2; i < 10; i++) {
+    let btn = document.querySelector('#answer-button')
+    let input = document.querySelector('#answer');
+    for (i = 2; i <= 10; i++) {
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.innerText === questions[0].answer) {
+            score = 100,000
+            balance.textContent = score;
+            display2();
+        } else {
+            score = 0
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
 }
 
 function display2() {
     q2.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 2) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -109,8 +149,9 @@ function display2() {
 }
 
 function display3() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    q3.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 3) { continue; }
          let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -118,8 +159,9 @@ function display3() {
 }
 
 function display4() {
-    q1.style.display = 'block'
-    for (i = 2; i < 10; i++) {
+    q4.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 2; i <= 10; i++) {
         if (i === 4) { continue; }
          let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -127,8 +169,9 @@ function display4() {
 }
 
 function display5() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    q5.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 5) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';    
@@ -136,8 +179,9 @@ function display5() {
 }
 
 function display6() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    q6.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 6) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -145,8 +189,9 @@ function display6() {
 }
 
 function display7() {
-    q1.style.display = 'block'
-    for (i = 2; i < 8; i++) {
+    q7.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 2; i <= 10; i++) {
         if (i === 7) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -154,8 +199,9 @@ function display7() {
 }
 
 function display8() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    q8.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 8) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -163,8 +209,9 @@ function display8() {
 }
 
 function display9() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    q9.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 9) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -172,8 +219,9 @@ function display9() {
 }
 
 function display10() {
-    q1.style.display = 'block'
-    for (i = 1; i < 10; i++) {
+    q10.style.display = 'block'
+    let input = document.querySelector('#answer');
+    for (i = 1; i <= 10; i++) {
         if (i === 10) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -189,30 +237,22 @@ function displayGame() {
     game.style.display = 'block';
 }
 
-let score = 0;
 
-function startGame(questions) {
-    console.log(questions[1])
-    displayGame();
-    shuffleArray(questions)
+// function startGame(questions) {
+//     displayGame();
+//     shuffleArray(questions);
+//     display1();
+//     let answer = document.querySelector('#answer-button');
+//     answer.addEventListener('click', (e) => {
+//         e.preventDefault();
+//         if (input === questions[0].answer) {
+//             score += 100000;
+//             balance.textContent = score;
+//             display2();
+//         }
+//     })
 
-    for (i = 1; i <= 10; i++) {
-        let q = questions;
-        displayNum(i);
-        let qs = document.querySelector(`#question-content-${i}`);
-        qs.innerText = q[i].content;
-        let input = document.querySelector('#answer')
-        let answerBtn = document.querySelector('#answer-button');
-        answerBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            score += 100000
-            balance.textContent = score;
-            // if (input.value === questions[i].answer) {
-            //     balance.value += 100,000
-            // }
-        })
-    }
-}
+// }
 
 
 
