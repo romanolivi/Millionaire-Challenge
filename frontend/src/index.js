@@ -95,6 +95,21 @@ function shuffleArray(array) {
     }
 }
 
+// Home Screen 
+function homeScreen() {
+    signInForm.style.display = 'block';
+    welcomeMessage.style.display = 'none';
+    failure.style.display = 'none';
+    headerTitle.innerHTML = `<h1>The Millionaire Challenge!</h1>`
+    headerTitle.style.display = 'block';
+    game.style.display = 'none';
+
+    for (let i = 1; i <= 10; i++) {
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
+}
+
 // Failure Screen
 
 function failureScreen() {
@@ -102,16 +117,21 @@ function failureScreen() {
     failure.style.display = 'block';
     let playAgain = document.querySelector('#play');
     let leaveGame = document.querySelector('#done');
+    for (let i = 1; i <= 10; i++) {
+        let q = document.querySelector(`#question-${i}`);
+        q.style.display = 'none';
+    }
 
     playAgain.addEventListener('click', (e) => {
         e.preventDefault();
+        failure.style.display = 'none';
         displayGame();
     })
 
-    // leaveGame.addEventListener('click', (e) => {
-    //     e.preventDefault();
-
-    // })
+    leaveGame.addEventListener('click', (e) => {
+        e.preventDefault();
+        homeScreen();
+    })
 }
 
 // Game Function
@@ -145,7 +165,6 @@ const gameBtn = document.querySelector('#start-game');
 
 // Declaring questions
 const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
-shuffleArray(questions);
 
 gameBtn.addEventListener('click', function(e) {
     e.preventDefault();
@@ -157,6 +176,7 @@ function displayGame() {
     headerTitle.style.display = 'none';
     welcomeMessage.style.display = 'none';
     game.style.display = 'block';
+    shuffleArray(questions);
     display1();
 }
 
@@ -176,10 +196,12 @@ function display1() {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value === questions[0].answer) {
-            score = 100000;
+            score = '$ 100,000 ';
             balance.textContent = score;
             display2();
         } else {
+            score = '$ 0 ';
+            balance.textContent = score;
             failureScreen();
         }
     })
@@ -188,92 +210,249 @@ function display1() {
 
 function display2() {
     q2.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[1].content;
+    console.log(content);
+    qq2.textContent = content;
+    let input = document.querySelector('#answer-2');
     for (i = 1; i <= 10; i++) {
         if (i === 2) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn2 = document.querySelector('#answer-button-2');
+    btn2.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[1].answer) {
+            score = '$ 200,000 ';
+            balance.textContent = score;
+            display3();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
+
 }
 
 function display3() {
     q3.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[2].content;
+    console.log(content);
+    qq3.textContent = content;
+    let input = document.querySelector('#answer-3');
     for (i = 1; i <= 10; i++) {
         if (i === 3) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn3 = document.querySelector('#answer-button-3');
+    btn3.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[2].answer) {
+            score = '$ 300,000 ';
+            balance.textContent = score;
+            display4();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
+
 }
 
 function display4() {
     q4.style.display = 'block'
-    let input = document.querySelector('#answer');
-    for (i = 2; i <= 10; i++) {
+    let content = questions[3].content;
+    console.log(content);
+    qq4.textContent = content;
+    let input = document.querySelector('#answer-4');
+    for (i = 1; i <= 10; i++) {
         if (i === 4) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn4 = document.querySelector('#answer-button-4');
+    btn4.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[3].answer) {
+            score = '$ 400,000 ';
+            balance.textContent = score;
+            display5();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
+
 }
 
 function display5() {
     q5.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[4].content;
+    console.log(content);
+    qq5.textContent = content;
+    let input = document.querySelector('#answer-5');
     for (i = 1; i <= 10; i++) {
         if (i === 5) { continue; }
         let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';    
+        q.style.display = 'none';
+    }
+
+    let btn5 = document.querySelector('#answer-button-5');
+    btn5.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[4].answer) {
+            score = '$ 500,000 ';
+            balance.textContent = score;
+            display6();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
         }
+    })
+
 }
 
 function display6() {
     q6.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[5].content;
+    console.log(content);
+    qq6.textContent = content;
+    let input = document.querySelector('#answer-6');
     for (i = 1; i <= 10; i++) {
         if (i === 6) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn6 = document.querySelector('#answer-button-6');
+    btn6.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[5].answer) {
+            score = '$ 600,000 ';
+            balance.textContent = score;
+            display7();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
 }
 
 function display7() {
     q7.style.display = 'block'
-    let input = document.querySelector('#answer');
-    for (i = 2; i <= 10; i++) {
+    let content = questions[6].content;
+    console.log(content);
+    qq7.textContent = content;
+    let input = document.querySelector('#answer-7');
+    for (i = 1; i <= 10; i++) {
         if (i === 7) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn7 = document.querySelector('#answer-button-7');
+    btn7.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[6].answer) {
+            score = '$ 700,000 ';
+            balance.textContent = score;
+            display8();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
 }
 
 function display8() {
     q8.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[7].content;
+    console.log(content);
+    qq8.textContent = content;
+    let input = document.querySelector('#answer-8');
     for (i = 1; i <= 10; i++) {
         if (i === 8) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn8 = document.querySelector('#answer-button-8');
+    btn8.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[7].answer) {
+            score = '$ 800,000 ';
+            balance.textContent = score;
+            display9();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
 }
 
 function display9() {
     q9.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[8].content;
+    console.log(content);
+    qq9.textContent = content;
+    let input = document.querySelector('#answer-9');
     for (i = 1; i <= 10; i++) {
         if (i === 9) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn9 = document.querySelector('#answer-button-9');
+    btn9.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[8].answer) {
+            score = '$ 900,000 ';
+            balance.textContent = score;
+            display10();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
 }
 
 function display10() {
     q10.style.display = 'block'
-    let input = document.querySelector('#answer');
+    let content = questions[9].content;
+    console.log(content);
+    qq10.textContent = content;
+    let input = document.querySelector('#answer-10');
     for (i = 1; i <= 10; i++) {
         if (i === 10) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
+
+    let btn10 = document.querySelector('#answer-button-10');
+    btn10.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (input.value === questions[9].answer) {
+            score = '$ 1,000,000 ';
+            balance.textContent = score;
+            challengeComplete();
+        } else {
+            score = '$ 0 ';
+            balance.textContent = score;
+            failureScreen();
+        }
+    })
 }
 
 let balance = document.querySelector('#balance')
