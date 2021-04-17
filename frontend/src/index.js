@@ -9,6 +9,7 @@ const welcomeMessage = document.querySelector('#welcome-message')
 const username = document.getElementById('username')
 
 
+// Question class
 class Questions {
     constructor(content, answer) {
         this.content = content;
@@ -16,6 +17,19 @@ class Questions {
     }
 }
 
+// Questions
+let city = new Questions("What is the most populated city in the world?", "Tokyo");
+let moose = new Questions("Which animal is the largest member of the deer family?", "Moose");
+let strawberry = new Questions("What is the only fruit that bears it's seeds on the outside?", "Strawberry");
+let europe = new Questions("Which continent is the only one without desserts?", "Europe");
+let eyeballs = new Questions("Which human body part stays the same size from birth", "Eyeballs");
+let feet = new Questions("Which body part do butterflies use to taste?", "Feet");
+let finland = new Questions("Which country is known as the Land of the Lakes?", "Finland");
+let india = new Questions("Which country is the leading producer of bananas?", "India");
+let athena = new Questions("Which Greek Goddess is the Goddess of Wisdom?", "Athena");
+let kobe = new Questions("Who was the famous basketball player who earned the nickname The Black Mamba?", "Kobe Bryant");
+
+// sign in button
 
 signInButton.addEventListener('click', function(e) {
     signIn(e);
@@ -70,15 +84,6 @@ function loggedIn(user) {
     }
 }
 
-const gameBtn = document.querySelector('#start-game');
-
-gameBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
-    shuffleArray(questions);
-    display1();
-})
-
 // Shuffle Question Array 
 
 function shuffleArray(array) {
@@ -95,7 +100,18 @@ function shuffleArray(array) {
 function failureScreen() {
     let failure = document.querySelector('#failure');
     failure.style.display = 'block';
-    
+    let playAgain = document.querySelector('#play');
+    let leaveGame = document.querySelector('#done');
+
+    playAgain.addEventListener('click', (e) => {
+        e.preventDefault();
+        displayGame();
+    })
+
+    // leaveGame.addEventListener('click', (e) => {
+    //     e.preventDefault();
+
+    // })
 }
 
 // Game Function
@@ -113,29 +129,61 @@ let q10 = document.querySelector('#question-10');
 
 let score = 0;
 
+let qq1 = document.querySelector('#question-content-1');
+let qq2 = document.querySelector('#question-content-2');
+let qq3 = document.querySelector('#question-content-3');
+let qq4 = document.querySelector('#question-content-4');
+let qq5 = document.querySelector('#question-content-5');
+let qq6 = document.querySelector('#question-content-6');
+let qq7 = document.querySelector('#question-content-7');
+let qq8 = document.querySelector('#question-content-8');
+let qq9 = document.querySelector('#question-content-9');
+let qq10 = document.querySelector('#question-content-10');
 
+// Game button
+const gameBtn = document.querySelector('#start-game');
+
+// Declaring questions
+const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
+shuffleArray(questions);
+
+gameBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    displayGame();
+})
+
+function displayGame() {
+    const game = document.querySelector('#game');
+    headerTitle.style.display = 'none';
+    welcomeMessage.style.display = 'none';
+    game.style.display = 'block';
+    display1();
+}
 
 function display1() {
     q1.style.display = 'block'
-    let btn = document.querySelector('#answer-button')
-    let input = document.querySelector('#answer');
-    for (i = 2; i <= 10; i++) {
+    let content = questions[0].content;
+    console.log(content);
+    qq1.textContent = content;
+    let input = document.querySelector('#answer-1');
+    for (i = 1; i <= 10; i++) {
+        if (i === 1) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
 
+    let btn = document.querySelector('#answer-button');
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.innerText === questions[0].answer) {
-            score = 100,000
+        if (input.value === questions[0].answer) {
+            score = 100000;
             balance.textContent = score;
             display2();
         } else {
-            score = 0
-            balance.textContent = score;
             failureScreen();
         }
     })
+
 }
 
 function display2() {
@@ -153,7 +201,7 @@ function display3() {
     let input = document.querySelector('#answer');
     for (i = 1; i <= 10; i++) {
         if (i === 3) { continue; }
-         let q = document.querySelector(`#question-${i}`);
+        let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
 }
@@ -163,7 +211,7 @@ function display4() {
     let input = document.querySelector('#answer');
     for (i = 2; i <= 10; i++) {
         if (i === 4) { continue; }
-         let q = document.querySelector(`#question-${i}`);
+        let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
     }
 }
@@ -230,18 +278,15 @@ function display10() {
 
 let balance = document.querySelector('#balance')
 
-function displayGame() {
-    const game = document.querySelector('#game');
-    headerTitle.style.display = 'none';
-    welcomeMessage.style.display = 'none';
-    game.style.display = 'block';
-}
+// Start Game
 
-
-// function startGame(questions) {
+// function startGame() {
 //     displayGame();
+//     const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
 //     shuffleArray(questions);
+//     qq1.textContent = questions[0].content;
 //     display1();
+//     qq1.innerText = questions[0].content;
 //     let answer = document.querySelector('#answer-button');
 //     answer.addEventListener('click', (e) => {
 //         e.preventDefault();
@@ -269,27 +314,16 @@ function displayGame() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-let city = new Questions("What is the most populated city in the world?", "Tokyo");
-let moose = new Questions("Which animal is the largest member of the deer family?", "Moose");
-let strawberry = new Questions("What is the only fruit that bears it's seeds on the outside?", "Strawberry");
-let europe = new Questions("Which continent is the only one without desserts?", "Europe");
-let eyeballs = new Questions("Which human body part stays the same size from birth", "Eyeballs");
-let feet = new Questions("Which body part do butterflies use to taste?", "Feet");
-let finland = new Questions("Which country is known as the Land of the Lakes?", "Finland");
-let india = new Questions("Which country is the leading producer of bananas?", "India");
-let athena = new Questions("Which Greek Goddess is the Goddess of Wisdom?", "Athena");
-let kobe = new Questions("Who was the famous basketball player who earned the nickname The Black Mamba?", "Kobe Bryant");
+// let city = new Questions("What is the most populated city in the world?", "Tokyo");
+// let moose = new Questions("Which animal is the largest member of the deer family?", "Moose");
+// let strawberry = new Questions("What is the only fruit that bears it's seeds on the outside?", "Strawberry");
+// let europe = new Questions("Which continent is the only one without desserts?", "Europe");
+// let eyeballs = new Questions("Which human body part stays the same size from birth", "Eyeballs");
+// let feet = new Questions("Which body part do butterflies use to taste?", "Feet");
+// let finland = new Questions("Which country is known as the Land of the Lakes?", "Finland");
+// let india = new Questions("Which country is the leading producer of bananas?", "India");
+// let athena = new Questions("Which Greek Goddess is the Goddess of Wisdom?", "Athena");
+// let kobe = new Questions("Who was the famous basketball player who earned the nickname The Black Mamba?", "Kobe Bryant");
 // let ringo = new Questions("Which former Beatle narrated the TV adventures of Thomas the Tank Engine?", "Ringo Starr");
 // let anchorage = new Questions("Which is the largest city in the USA's largest state?", "Anchorage");
 
