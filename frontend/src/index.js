@@ -1,13 +1,16 @@
-// const axios = require('axios').default;
 const BASE_URL = "http://localhost:3000";
-const USER_URL = `${BASE_URL}/users`;
+const USERS_URL = `${BASE_URL}/users`;
 const BALANCE_URL = `${BASE_URL}/balances`;
 const LEADERBOARD_URL = `${BASE_URL}/leaderboard`;
 const signInForm = document.querySelector('.signin-form')
 const signInButton = document.querySelector('#signup-submit')
 const welcomeMessage = document.querySelector('#welcome-message')
-const username = document.getElementById('username')
+const leaderBtn = document.querySelector('#leader-btn');
+let balance = document.querySelector('#balance');
 
+
+// Game button
+const gameBtn = document.querySelector('#start-game');
 
 // Question class
 class Questions {
@@ -31,18 +34,8 @@ let kobe = new Questions("Who was the famous basketball player who earned the ni
 
 // sign in button
 
-signInButton.addEventListener('click', function(e) {
-    signIn(e);
-    // e.preventDefault();
-    // console.log(e.target.value);
-})
-
-// sign in function
-
-function signIn(e) {
+signInButton.addEventListener('click', function(e) { 
     e.preventDefault();
-    
-
     const signInUsername = document.querySelector('#signup-username').value;
 
     let formData = {
@@ -58,28 +51,37 @@ function signIn(e) {
         body: JSON.stringify(formData)
     }
 
-    fetch(USER_URL, configObj)
+    fetch(USERS_URL, configObj)
     .then(resp => resp.json())
     .then(json => {
         loggedIn(json);
-    
     })
     .catch(function(error) {
         alert("Fetch response did not succeed");
     })
 
-}
+})
+
+// sign in function
+
 
 const headerTitle = document.querySelector('.header-title');
 
 function loggedIn(user) {
     if (user) {
-        currentUser = user;
+        currentUser = user.username;
         signInForm.style.display = 'none'
+        leaderBtn.style.display = 'none'
         welcomeMessage.style.display = 'block'
-        headerTitle.innerHTML = `<h1>Welcome, ${currentUser.username}!</h1>`
+        headerTitle.innerHTML = `<h1>Welcome, ${currentUser}!</h1>`
+
+        gameBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            displayGame(currentUser);
+        })
     } else { 
         signInForm.style.display = 'block'
+        leaderBtn.style.display = 'block'
         welcomeMessage.style.display = 'none'
     }
 }
@@ -92,21 +94,6 @@ function shuffleArray(array) {
         var temp = array[i];
         array[i] = array[j];
         array[j] = temp;
-    }
-}
-
-// Home Screen 
-function homeScreen() {
-    signInForm.style.display = 'block';
-    welcomeMessage.style.display = 'none';
-    failure.style.display = 'none';
-    headerTitle.innerHTML = `<h1>The Millionaire Challenge!</h1>`
-    headerTitle.style.display = 'block';
-    game.style.display = 'none';
-
-    for (let i = 1; i <= 10; i++) {
-        let q = document.querySelector(`#question-${i}`);
-        q.style.display = 'none';
     }
 }
 
@@ -129,8 +116,7 @@ function failureScreen() {
     })
 
     leaveGame.addEventListener('click', (e) => {
-        e.preventDefault();
-        homeScreen();
+        location.reload();
     })
 }
 
@@ -160,27 +146,21 @@ let qq8 = document.querySelector('#question-content-8');
 let qq9 = document.querySelector('#question-content-9');
 let qq10 = document.querySelector('#question-content-10');
 
-// Game button
-const gameBtn = document.querySelector('#start-game');
+
 
 // Declaring questions
 const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
 
-gameBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    displayGame();
-})
-
-function displayGame() {
+function displayGame(currentUser) {
     const game = document.querySelector('#game');
     headerTitle.style.display = 'none';
     welcomeMessage.style.display = 'none';
     game.style.display = 'block';
     shuffleArray(questions);
-    display1();
+    display1(currentUser);
 }
 
-function display1() {
+function display1(currentUser) {
     q1.style.display = 'block'
     let content = questions[0].content;
     console.log(content);
@@ -206,9 +186,15 @@ function display1() {
         }
     })
 
+    let leave = document.querySelector('#leave-1');
+    leave.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, '$ 100,000 ')
+    })
+
 }
 
-function display2() {
+function display2(currentUser) {
     q2.style.display = 'block'
     let content = questions[1].content;
     console.log(content);
@@ -232,6 +218,12 @@ function display2() {
             balance.textContent = score;
             failureScreen();
         }
+    })
+
+    let leave2 = document.querySelector('#leave-2');
+    leave2.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser)
     })
 
 }
@@ -455,41 +447,38 @@ function display10() {
     })
 }
 
-let balance = document.querySelector('#balance')
+let leaderboardButton = document.querySelector('#leaderboard-btn');
+let leaderboard = document.querySelector('#leaderboard');
+const table = document.querySelector('.table');
 
-// Start Game
+leaderboardButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    leaderboard.style.display = 'block'
+    signInForm.style.display = 'none'
+    leaderBtn.style.display = 'none'
+    welcomeMessage.style.display = 'none'
 
-// function startGame() {
-//     displayGame();
-//     const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
-//     shuffleArray(questions);
-//     qq1.textContent = questions[0].content;
-//     display1();
-//     qq1.innerText = questions[0].content;
-//     let answer = document.querySelector('#answer-button');
-//     answer.addEventListener('click', (e) => {
-//         e.preventDefault();
-//         if (input === questions[0].answer) {
-//             score += 100000;
-//             balance.textContent = score;
-//             display2();
-//         }
-//     })
+})
 
-// }
+function userToLeaderboard(name, score) {
+    let row = document.createElement('tr');
 
+    let nameRow = document.createElement('td');
+    nameRow.innerText = name;
+    row.appendChild(nameRow);
 
+    let scoreRow = document.createElement('td');
+    scoreRow.innerText = score;
+    row.appendChild(scoreRow);
 
+    table.appendChild(row);
 
+    leaderboard.style.display = 'block'
+    signInForm.style.display = 'none'
+    leaderBtn.style.display = 'none'
+    welcomeMessage.style.display = 'none'
 
-
-
-
-
-
-
-
-
+}
 
 
 
