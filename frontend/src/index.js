@@ -66,6 +66,7 @@ signInButton.addEventListener('click', function(e) {
 
 
 const headerTitle = document.querySelector('.header-title');
+let currentUser;
 
 function loggedIn(user) {
     if (user) {
@@ -151,16 +152,16 @@ let qq10 = document.querySelector('#question-content-10');
 // Declaring questions
 const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
 
-function displayGame(currentUser) {
+function displayGame() {
     const game = document.querySelector('#game');
     headerTitle.style.display = 'none';
     welcomeMessage.style.display = 'none';
     game.style.display = 'block';
     shuffleArray(questions);
-    display1(currentUser);
+    display1();
 }
 
-function display1(currentUser) {
+function display1() {
     q1.style.display = 'block'
     let content = questions[0].content;
     console.log(content);
@@ -189,12 +190,12 @@ function display1(currentUser) {
     let leave = document.querySelector('#leave-1');
     leave.addEventListener('click', (e) => {
         e.preventDefault();
-        userToLeaderboard(currentUser, '$ 100,000 ')
+        userToLeaderboard(currentUser, '$ 0 ')
     })
 
 }
 
-function display2(currentUser) {
+function display2() {
     q2.style.display = 'block'
     let content = questions[1].content;
     console.log(content);
@@ -223,7 +224,7 @@ function display2(currentUser) {
     let leave2 = document.querySelector('#leave-2');
     leave2.addEventListener('click', (e) => {
         e.preventDefault();
-        userToLeaderboard(currentUser)
+        userToLeaderboard(currentUser, ' $ 100,000 ')
     })
 
 }
@@ -254,6 +255,12 @@ function display3() {
         }
     })
 
+    let leave3 = document.querySelector('#leave-3');
+    leave3.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, ' $ 200,000 ')
+    })
+
 }
 
 function display4() {
@@ -280,6 +287,12 @@ function display4() {
             balance.textContent = score;
             failureScreen();
         }
+    })
+
+    let leave4 = document.querySelector('#leave-4');
+    leave4.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, ' $ 300,000 ')
     })
 
 }
@@ -310,6 +323,12 @@ function display5() {
         }
     })
 
+    let leave5 = document.querySelector('#leave-5');
+    leave5.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, ' $ 400,000 ')
+    })
+
 }
 
 function display6() {
@@ -337,6 +356,13 @@ function display6() {
             failureScreen();
         }
     })
+
+    let leave6 = document.querySelector('#leave-6');
+    leave6.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, ' $ 500,000 ')
+    })
+
 }
 
 function display7() {
@@ -363,6 +389,12 @@ function display7() {
             balance.textContent = score;
             failureScreen();
         }
+    })
+
+    let leave7 = document.querySelector('#leave-7');
+    leave7.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, ' $ 600,000 ')
     })
 }
 
@@ -391,6 +423,12 @@ function display8() {
             failureScreen();
         }
     })
+
+    let leave8 = document.querySelector('#leave-8');
+    leave8.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, '$ 700,000 ')
+    })
 }
 
 function display9() {
@@ -417,6 +455,12 @@ function display9() {
             balance.textContent = score;
             failureScreen();
         }
+    })
+
+    let leave9 = document.querySelector('#leave-9');
+    leave9.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, '$ 800,000 ')
     })
 }
 
@@ -445,6 +489,12 @@ function display10() {
             failureScreen();
         }
     })
+
+    let leave10 = document.querySelector('#leave-10');
+    leave10.addEventListener('click', (e) => {
+        e.preventDefault();
+        userToLeaderboard(currentUser, '$ 900,000 ')
+    })
 }
 
 let leaderboardButton = document.querySelector('#leaderboard-btn');
@@ -464,11 +514,11 @@ function userToLeaderboard(name, score) {
     let row = document.createElement('tr');
 
     let nameRow = document.createElement('td');
-    nameRow.innerText = name;
+    nameRow.innerText = `${name}`;
     row.appendChild(nameRow);
 
     let scoreRow = document.createElement('td');
-    scoreRow.innerText = score;
+    scoreRow.innerText = `${score}`;
     row.appendChild(scoreRow);
 
     table.appendChild(row);
