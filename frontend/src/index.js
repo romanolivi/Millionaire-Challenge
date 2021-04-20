@@ -1,7 +1,7 @@
 const BASE_URL = "http://localhost:3000";
 const USERS_URL = `${BASE_URL}/users`;
 const BALANCE_URL = `${BASE_URL}/balances`;
-const LEADERBOARD_URL = `${BASE_URL}/leaderboard`;
+const LEADERBOARD_URL = `${BASE_URL}/leaderboards`;
 const signInForm = document.querySelector('.signin-form')
 const signInButton = document.querySelector('#signup-submit')
 const welcomeMessage = document.querySelector('#welcome-message')
@@ -62,6 +62,40 @@ signInButton.addEventListener('click', function(e) {
 
 })
 
+// Leave functionality
+
+let leaderboardButton = document.querySelector('#leaderboard-btn');
+let leaderboard = document.querySelector('#leaderboard');
+
+let leaveBtn = document.querySelector('.leave');
+
+leaveBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    let username = currentUser.username;
+    let balance = score;
+
+    formData = {
+        username: username,
+        balance: balance
+    }
+
+    configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+    }
+
+    fetch(LEADERBOARD_URL, configObj)
+    .then(resp => resp.json())
+    .then(json => {
+        updateLB(json);
+    })
+})
+
+
 // sign in function
 
 
@@ -70,11 +104,11 @@ let currentUser;
 
 function loggedIn(user) {
     if (user) {
-        currentUser = user.username;
+        currentUser = user;
         signInForm.style.display = 'none'
         leaderBtn.style.display = 'none'
         welcomeMessage.style.display = 'block'
-        headerTitle.innerHTML = `<h1>Welcome, ${currentUser}!</h1>`
+        headerTitle.innerHTML = `<h1>Welcome, ${currentUser.username}!</h1>`
 
         gameBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -176,7 +210,7 @@ function display1() {
     let btn = document.querySelector('#answer-button');
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[0].answer) {
+        if (input.value.toLowerCase() === questions[0].answer.toLowerCase()) {
             score = '$ 100,000 ';
             balance.textContent = score;
             display2();
@@ -187,15 +221,10 @@ function display1() {
         }
     })
 
-    let leave = document.querySelector('#leave-1');
-    leave.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, '$ 0 ')
-    })
-
 }
 
 function display2() {
+    console.log(currentUser)
     q2.style.display = 'block'
     let content = questions[1].content;
     console.log(content);
@@ -210,7 +239,7 @@ function display2() {
     let btn2 = document.querySelector('#answer-button-2');
     btn2.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[1].answer) {
+        if (input.value.toLowerCase() === questions[1].answer.toLowerCase()) {
             score = '$ 200,000 ';
             balance.textContent = score;
             display3();
@@ -219,12 +248,6 @@ function display2() {
             balance.textContent = score;
             failureScreen();
         }
-    })
-
-    let leave2 = document.querySelector('#leave-2');
-    leave2.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, ' $ 100,000 ')
     })
 
 }
@@ -244,7 +267,7 @@ function display3() {
     let btn3 = document.querySelector('#answer-button-3');
     btn3.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[2].answer) {
+        if (input.value.toLowerCase() === questions[2].answer.toLowerCase()) {
             score = '$ 300,000 ';
             balance.textContent = score;
             display4();
@@ -253,12 +276,6 @@ function display3() {
             balance.textContent = score;
             failureScreen();
         }
-    })
-
-    let leave3 = document.querySelector('#leave-3');
-    leave3.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, ' $ 200,000 ')
     })
 
 }
@@ -278,7 +295,7 @@ function display4() {
     let btn4 = document.querySelector('#answer-button-4');
     btn4.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[3].answer) {
+        if (input.value.toLowerCase() === questions[3].answer.toLowerCase()) {
             score = '$ 400,000 ';
             balance.textContent = score;
             display5();
@@ -287,12 +304,6 @@ function display4() {
             balance.textContent = score;
             failureScreen();
         }
-    })
-
-    let leave4 = document.querySelector('#leave-4');
-    leave4.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, ' $ 300,000 ')
     })
 
 }
@@ -312,7 +323,7 @@ function display5() {
     let btn5 = document.querySelector('#answer-button-5');
     btn5.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[4].answer) {
+        if (input.value.toLowerCase() === questions[4].answer.toLowerCase()) {
             score = '$ 500,000 ';
             balance.textContent = score;
             display6();
@@ -321,12 +332,6 @@ function display5() {
             balance.textContent = score;
             failureScreen();
         }
-    })
-
-    let leave5 = document.querySelector('#leave-5');
-    leave5.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, ' $ 400,000 ')
     })
 
 }
@@ -346,7 +351,7 @@ function display6() {
     let btn6 = document.querySelector('#answer-button-6');
     btn6.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[5].answer) {
+        if (input.value.toLowerCase() === questions[5].answer.toLowerCase()) {
             score = '$ 600,000 ';
             balance.textContent = score;
             display7();
@@ -355,12 +360,6 @@ function display6() {
             balance.textContent = score;
             failureScreen();
         }
-    })
-
-    let leave6 = document.querySelector('#leave-6');
-    leave6.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, ' $ 500,000 ')
     })
 
 }
@@ -380,7 +379,7 @@ function display7() {
     let btn7 = document.querySelector('#answer-button-7');
     btn7.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[6].answer) {
+        if (input.value.toLowerCase() === questions[6].answer.toLowerCase()) {
             score = '$ 700,000 ';
             balance.textContent = score;
             display8();
@@ -391,11 +390,6 @@ function display7() {
         }
     })
 
-    let leave7 = document.querySelector('#leave-7');
-    leave7.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, ' $ 600,000 ')
-    })
 }
 
 function display8() {
@@ -413,7 +407,7 @@ function display8() {
     let btn8 = document.querySelector('#answer-button-8');
     btn8.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[7].answer) {
+        if (input.value.toLowerCase() === questions[7].answer.toLowerCase()) {
             score = '$ 800,000 ';
             balance.textContent = score;
             display9();
@@ -424,11 +418,6 @@ function display8() {
         }
     })
 
-    let leave8 = document.querySelector('#leave-8');
-    leave8.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, '$ 700,000 ')
-    })
 }
 
 function display9() {
@@ -446,7 +435,7 @@ function display9() {
     let btn9 = document.querySelector('#answer-button-9');
     btn9.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[8].answer) {
+        if (input.value.toLowerCase() === questions[8].answer.toLowerCase()) {
             score = '$ 900,000 ';
             balance.textContent = score;
             display10();
@@ -457,11 +446,6 @@ function display9() {
         }
     })
 
-    let leave9 = document.querySelector('#leave-9');
-    leave9.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, '$ 800,000 ')
-    })
 }
 
 function display10() {
@@ -479,7 +463,7 @@ function display10() {
     let btn10 = document.querySelector('#answer-button-10');
     btn10.addEventListener('click', (e) => {
         e.preventDefault();
-        if (input.value === questions[9].answer) {
+        if (input.value.toLowerCase() === questions[9].answer.toLowerCase()) {
             score = '$ 1,000,000 ';
             balance.textContent = score;
             challengeComplete();
@@ -490,19 +474,11 @@ function display10() {
         }
     })
 
-    let leave10 = document.querySelector('#leave-10');
-    leave10.addEventListener('click', (e) => {
-        e.preventDefault();
-        userToLeaderboard(currentUser, '$ 900,000 ')
-    })
 }
-
-let leaderboardButton = document.querySelector('#leaderboard-btn');
-let leaderboard = document.querySelector('#leaderboard');
-const table = document.querySelector('.table');
 
 leaderboardButton.addEventListener('click', (e) => {
     e.preventDefault();
+    game.style.display = 'none'
     leaderboard.style.display = 'block'
     signInForm.style.display = 'none'
     leaderBtn.style.display = 'none'
@@ -510,25 +486,40 @@ leaderboardButton.addEventListener('click', (e) => {
 
 })
 
-function userToLeaderboard(name, score) {
-    let row = document.createElement('tr');
 
+function updateLB(data) {
+    let row = document.createElement('tr');
     let nameRow = document.createElement('td');
-    nameRow.innerText = `${name}`;
-    row.appendChild(nameRow);
+    nameRow.innerText = data.username;
 
     let scoreRow = document.createElement('td');
-    scoreRow.innerText = `${score}`;
-    row.appendChild(scoreRow);
+    scoreRow.innerText = data.balance;
 
-    table.appendChild(row);
+    row.appendChild(nameRow, scoreRow);
 
-    leaderboard.style.display = 'block'
-    signInForm.style.display = 'none'
-    leaderBtn.style.display = 'none'
-    welcomeMessage.style.display = 'none'
-
+    leaderboard.style.display = 'block';
 }
+
+
+// function userToLeaderboard(name, score) {
+//     let row = document.createElement('tr');
+
+//     let nameRow = document.createElement('td');
+//     nameRow.innerText = `${name}`;
+//     row.appendChild(nameRow);
+
+//     let scoreRow = document.createElement('td');
+//     scoreRow.innerText = `${score}`;
+//     row.appendChild(scoreRow);
+
+//     table.appendChild(row);
+
+//     leaderboard.style.display = 'block'
+//     signInForm.style.display = 'none'
+//     leaderBtn.style.display = 'none'
+//     welcomeMessage.style.display = 'none'
+
+// }
 
 
 
@@ -546,20 +537,9 @@ function userToLeaderboard(name, score) {
 // let anchorage = new Questions("Which is the largest city in the USA's largest state?", "Anchorage");
 
 
-
-
 // const BACKEND_URL = 'localhost:3001';
 
 // fetch(`${BACKEND_URL}/test`)
 // .then(response => response.json())
 // .then(parsedResponse => console.log(parsedResponse));
 
-// function displayNum(num) {
-//     let que = document.querySelector(`#question-${num}`);
-//     que.style.display = 'block';
-//     for (i = 1; i <= 10; i++) {
-//         if (i === num) { continue; }
-//         let other = document.querySelector(`#question-${i}`);
-//         other.style.display = 'none';
-//     }
-// }

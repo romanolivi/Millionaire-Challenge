@@ -1,13 +1,19 @@
 class UsersController < ApplicationController
 
     def index 
-        users = User.all 
-        render json: UserSerializer.new(users) 
+        users = User.all
+        options = {
+            include: [:balances]
+        } 
+        render json: UserSerializer.new(users, options) 
     end
 
     def show 
         user = User.find_by(id: params[:id])
-        render json: UserSerializer.new(user)
+        options = {
+            include: [:balances]
+        }
+        render json: UserSerializer.new(user, options)
     end 
 
     def create 
@@ -19,6 +25,14 @@ class UsersController < ApplicationController
         end 
     end 
 
+    def update 
+        user = User.find(params[:id])
+        if user 
+            balance = Balance.create(:balance => params[:_json], :user_id => params[:id])
+        end
+
+        render json: balance 
+    end
 
     private 
 

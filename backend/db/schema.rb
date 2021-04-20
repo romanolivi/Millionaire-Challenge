@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_04_03_005410) do
 
   create_table "balances", force: :cascade do |t|
-    t.integer "amount"
+    t.string "score"
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_04_03_005410) do
 
   create_table "leaderboards", force: :cascade do |t|
     t.string "username"
-    t.integer "balance"
+    t.string "balance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
