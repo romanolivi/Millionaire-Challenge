@@ -30,9 +30,16 @@
     border-collapse: collapse;
     font-size: 0.9em;
     font-family: sans-serif;
-    width: 15%;
-    left: 50%;
 }
+
+.table {
+    width: 500px;
+    left: 45%;
+    bottom: 5%;
+    margin: 0 auto;
+}
+
+
 
 
 
