@@ -9,7 +9,7 @@ const leaderBtn = document.querySelector('#leader-btn');
 let b = document.querySelector('#balance');
 
 let leaderboardButton = document.querySelector('#leaderboard-btn');
-let leaderboard = document.querySelector('#leaderboard');
+let leaderboard = document.querySelector('.table');
 
 let leaveBtn = document.querySelector('.leave');
 
@@ -443,7 +443,6 @@ function display10() {
             score += 100000;
             b.textContent = score;
             winner();
-            challengeComplete();
         } else {
             score = 0;
             b.textContent = score;
@@ -456,12 +455,6 @@ function display10() {
 // Challenge Complete
 
 let winLayout = document.querySelector('#win');
-
-function challengeComplete() {
-    winLayout.style.display = 'block';
-    game.style.display = 'none';
-
-}
 
 // Winner function
 
@@ -487,19 +480,19 @@ function winner() {
     .then(resp => resp.json())
     .then(json => {
         console.log(json.data.attributes.balance)
-        updateLB();
+        updateBoard();
     })
-    // updateLB();
-    leaderboard.style.display = 'block'
+    game.style.display = 'none';
+    winLayout.style.display = 'block';
     game.style.display = 'none';
 }
 
-function updateLB(){
+function updateBoard(){
     fetch(LEADERBOARD_URL)
         .then((resp) => resp.json())
         .then(json => {
-            sortLB(json.data);
             console.log(json.data);
+            sortBoard(json.data);
         })
 }
 
@@ -528,37 +521,36 @@ leaveBtn.addEventListener('click', function(e) {
     .then(resp => resp.json())
     .then(json => {
         console.log(json.data.attributes.balance)
-        updateLB();
+        updateBoard();
     })
-    // updateLB();
     leaderboard.style.display = 'block'
     game.style.display = 'none';
 })
 
-function updateLB(){
+function updateBoard(){
     fetch(LEADERBOARD_URL)
         .then((resp) => resp.json())
         .then(json => {
-            sortLB(json.data);
+            sortBoard(json.data);
             console.log(json.data);
         })
 }
 
-function sortLB(data) {
-    let s = data.sort(function (a, b) {
+function sortBoard(data) {
+    let sortedData = data.sort(function (a, b) {
         return b.attributes.balance - a.attributes.balance;
     });
-    showLeaderboard(s)
+    showBoard(sortedData)
 }
 
 
-function showLeaderboard(d) {
-    let data = d;
-    let count = 1;
-    data.forEach((u) => {
-        document.getElementById(`name-${count}`).innerText = u.attributes.username;
-        document.getElementById(`score-${count}`).innerText = u.attributes.balance;
-        count += 1
+function showBoard(sortedData) {
+    let data = sortedData;
+    let i = 1;
+    data.forEach((d) => {
+        document.getElementById(`name-${i}`).innerText = d.attributes.username;
+        document.getElementById(`score-${i}`).innerText = d.attributes.balance;
+        i += 1
     });
 }
 
@@ -566,35 +558,11 @@ function showLeaderboard(d) {
 
 leaderboardButton.addEventListener('click', (e) => {
     e.preventDefault();
-    updateLB();
+    updateBoard();
     game.style.display = 'none'
     leaderboard.style.display = 'block'
     signInForm.style.display = 'none'
     leaderBtn.style.display = 'none'
     welcomeMessage.style.display = 'none'
-
+    winLayout.style.display = 'none'
 })
-
-
-
-
-// let city = new Questions("What is the most populated city in the world?", "Tokyo");
-// let moose = new Questions("Which animal is the largest member of the deer family?", "Moose");
-// let strawberry = new Questions("What is the only fruit that bears it's seeds on the outside?", "Strawberry");
-// let europe = new Questions("Which continent is the only one without desserts?", "Europe");
-// let eyeballs = new Questions("Which human body part stays the same size from birth", "Eyeballs");
-// let feet = new Questions("Which body part do butterflies use to taste?", "Feet");
-// let finland = new Questions("Which country is known as the Land of the Lakes?", "Finland");
-// let india = new Questions("Which country is the leading producer of bananas?", "India");
-// let athena = new Questions("Which Greek Goddess is the Goddess of Wisdom?", "Athena");
-// let kobe = new Questions("Who was the famous basketball player who earned the nickname The Black Mamba?", "Kobe Bryant");
-// let ringo = new Questions("Which former Beatle narrated the TV adventures of Thomas the Tank Engine?", "Ringo Starr");
-// let anchorage = new Questions("Which is the largest city in the USA's largest state?", "Anchorage");
-
-
-// const BACKEND_URL = 'localhost:3001';
-
-// fetch(`${BACKEND_URL}/test`)
-// .then(response => response.json())
-// .then(parsedResponse => console.log(parsedResponse));
-

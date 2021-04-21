@@ -33,10 +33,11 @@
 }
 
 .table {
+    position: absolute;
     width: 500px;
-    left: 45%;
     bottom: 5%;
-    margin: 0 auto;
+    left: 40%;
+    display: none;
 }
 
 #win {
