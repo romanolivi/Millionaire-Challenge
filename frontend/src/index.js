@@ -35,6 +35,13 @@ let finland = new Questions("Which country is known as the Land of the Lakes?", 
 let india = new Questions("Which country is the leading producer of bananas?", "India");
 let athena = new Questions("Which Greek Goddess is the Goddess of Wisdom?", "Athena");
 let kobe = new Questions("Who was the famous basketball player who earned the nickname The Black Mamba?", "Kobe Bryant");
+let ringo = new Questions("Which former Beatle narrated the TV adventures of Thomas the Tank Engine?", "Ringo Starr");
+let anchorage = new Questions("Which is the largest city in the USA's largest state?", "Anchorage");
+
+
+
+
+
 
 // sign in button
 
@@ -435,6 +442,7 @@ function display10() {
         if (input.value.toLowerCase() === questions[9].answer.toLowerCase()) {
             score += 100000;
             b.textContent = score;
+            winner();
             challengeComplete();
         } else {
             score = 0;
@@ -443,6 +451,56 @@ function display10() {
         }
     })
 
+}
+
+// Challenge Complete
+
+let winLayout = document.querySelector('#win');
+
+function challengeComplete() {
+    winLayout.style.display = 'block';
+    game.style.display = 'none';
+
+}
+
+// Winner function
+
+function winner() {
+    let username = currentUser.username;
+    let balance = score;
+
+    formData = {
+        username: username,
+        balance: balance
+    }
+
+    configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+    }
+
+    fetch(LEADERBOARD_URL, configObj)
+    .then(resp => resp.json())
+    .then(json => {
+        console.log(json.data.attributes.balance)
+        updateLB();
+    })
+    // updateLB();
+    leaderboard.style.display = 'block'
+    game.style.display = 'none';
+}
+
+function updateLB(){
+    fetch(LEADERBOARD_URL)
+        .then((resp) => resp.json())
+        .then(json => {
+            sortLB(json.data);
+            console.log(json.data);
+        })
 }
 
 // Leave button
@@ -517,40 +575,6 @@ leaderboardButton.addEventListener('click', (e) => {
 
 })
 
-// function updateLB(d) {
-//     let row = document.createElement('tr');
-//     let nameRow = document.createElement('td');
-//     console.log(d.data.attributes.balance)
-//     nameRow.innerText = d.data.attributes.username;
-
-//     let scoreRow = document.createElement('td');
-//     scoreRow.innerText = d.data.attributes.balance;
-
-//     row.appendChild(nameRow, scoreRow);
-
-//     leaderboard.style.display = 'block';
-// }
-
-
-// function userToLeaderboard(name, score) {
-//     let row = document.createElement('tr');
-
-//     let nameRow = document.createElement('td');
-//     nameRow.innerText = `${name}`;
-//     row.appendChild(nameRow);
-
-//     let scoreRow = document.createElement('td');
-//     scoreRow.innerText = `${score}`;
-//     row.appendChild(scoreRow);
-
-//     table.appendChild(row);
-
-//     leaderboard.style.display = 'block'
-//     signInForm.style.display = 'none'
-//     leaderBtn.style.display = 'none'
-//     welcomeMessage.style.display = 'none'
-
-// }
 
 
 
