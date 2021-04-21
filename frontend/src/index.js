@@ -6,8 +6,12 @@ const signInForm = document.querySelector('.signin-form')
 const signInButton = document.querySelector('#signup-submit')
 const welcomeMessage = document.querySelector('#welcome-message')
 const leaderBtn = document.querySelector('#leader-btn');
-let balance = document.querySelector('#balance');
+let b = document.querySelector('#balance');
 
+let leaderboardButton = document.querySelector('#leaderboard-btn');
+let leaderboard = document.querySelector('#leaderboard');
+
+let leaveBtn = document.querySelector('.leave');
 
 // Game button
 const gameBtn = document.querySelector('#start-game');
@@ -62,40 +66,6 @@ signInButton.addEventListener('click', function(e) {
 
 })
 
-// Leave functionality
-
-let leaderboardButton = document.querySelector('#leaderboard-btn');
-let leaderboard = document.querySelector('#leaderboard');
-
-let leaveBtn = document.querySelector('.leave');
-
-leaveBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    let username = currentUser.username;
-    let balance = score;
-
-    formData = {
-        username: username,
-        balance: balance
-    }
-
-    configObj = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(formData)
-    }
-
-    fetch(LEADERBOARD_URL, configObj)
-    .then(resp => resp.json())
-    .then(json => {
-        updateLB(json);
-    })
-})
-
-
 // sign in function
 
 
@@ -139,6 +109,7 @@ function failureScreen() {
     failure.style.display = 'block';
     let playAgain = document.querySelector('#play');
     let leaveGame = document.querySelector('#done');
+    leaveBtn.style.display = 'none';
     for (let i = 1; i <= 10; i++) {
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
@@ -198,7 +169,6 @@ function displayGame() {
 function display1() {
     q1.style.display = 'block'
     let content = questions[0].content;
-    console.log(content);
     qq1.textContent = content;
     let input = document.querySelector('#answer-1');
     for (i = 1; i <= 10; i++) {
@@ -211,12 +181,12 @@ function display1() {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[0].answer.toLowerCase()) {
-            score = '$ 100,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display2();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0 ;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -224,7 +194,6 @@ function display1() {
 }
 
 function display2() {
-    console.log(currentUser)
     q2.style.display = 'block'
     let content = questions[1].content;
     console.log(content);
@@ -240,12 +209,12 @@ function display2() {
     btn2.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[1].answer.toLowerCase()) {
-            score = '$ 200,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display3();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -268,12 +237,12 @@ function display3() {
     btn3.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[2].answer.toLowerCase()) {
-            score = '$ 300,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display4();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -296,12 +265,12 @@ function display4() {
     btn4.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[3].answer.toLowerCase()) {
-            score = '$ 400,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display5();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -324,12 +293,12 @@ function display5() {
     btn5.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[4].answer.toLowerCase()) {
-            score = '$ 500,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display6();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -352,12 +321,12 @@ function display6() {
     btn6.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[5].answer.toLowerCase()) {
-            score = '$ 600,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display7();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -380,12 +349,12 @@ function display7() {
     btn7.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[6].answer.toLowerCase()) {
-            score = '$ 700,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display8();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -408,12 +377,12 @@ function display8() {
     btn8.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[7].answer.toLowerCase()) {
-            score = '$ 800,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display9();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -436,12 +405,12 @@ function display9() {
     btn9.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[8].answer.toLowerCase()) {
-            score = '$ 900,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             display10();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
@@ -464,20 +433,82 @@ function display10() {
     btn10.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[9].answer.toLowerCase()) {
-            score = '$ 1,000,000 ';
-            balance.textContent = score;
+            score += 100000;
+            b.textContent = score;
             challengeComplete();
         } else {
-            score = '$ 0 ';
-            balance.textContent = score;
+            score = 0;
+            b.textContent = score;
             failureScreen();
         }
     })
 
 }
 
+// Leave button
+
+leaveBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    let username = currentUser.username;
+    let balance = score;
+
+    formData = {
+        username: username,
+        balance: balance
+    }
+
+    configObj = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(formData)
+    }
+
+    fetch(LEADERBOARD_URL, configObj)
+    .then(resp => resp.json())
+    .then(json => {
+        console.log(json.data.attributes.balance)
+        updateLB();
+    })
+    // updateLB();
+    leaderboard.style.display = 'block'
+    game.style.display = 'none';
+})
+
+function updateLB(){
+    fetch(LEADERBOARD_URL)
+        .then((resp) => resp.json())
+        .then(json => {
+            sortLB(json.data);
+            console.log(json.data);
+        })
+}
+
+function sortLB(data) {
+    let s = data.sort(function (a, b) {
+        return b.attributes.balance - a.attributes.balance;
+    });
+    showLeaderboard(s)
+}
+
+
+function showLeaderboard(d) {
+    let data = d;
+    let count = 1;
+    data.forEach((u) => {
+        document.getElementById(`name-${count}`).innerText = u.attributes.username;
+        document.getElementById(`score-${count}`).innerText = u.attributes.balance;
+        count += 1
+    });
+}
+
+// Leaderboard button
+
 leaderboardButton.addEventListener('click', (e) => {
     e.preventDefault();
+    updateLB();
     game.style.display = 'none'
     leaderboard.style.display = 'block'
     signInForm.style.display = 'none'
@@ -486,19 +517,19 @@ leaderboardButton.addEventListener('click', (e) => {
 
 })
 
+// function updateLB(d) {
+//     let row = document.createElement('tr');
+//     let nameRow = document.createElement('td');
+//     console.log(d.data.attributes.balance)
+//     nameRow.innerText = d.data.attributes.username;
 
-function updateLB(data) {
-    let row = document.createElement('tr');
-    let nameRow = document.createElement('td');
-    nameRow.innerText = data.username;
+//     let scoreRow = document.createElement('td');
+//     scoreRow.innerText = d.data.attributes.balance;
 
-    let scoreRow = document.createElement('td');
-    scoreRow.innerText = data.balance;
+//     row.appendChild(nameRow, scoreRow);
 
-    row.appendChild(nameRow, scoreRow);
-
-    leaderboard.style.display = 'block';
-}
+//     leaderboard.style.display = 'block';
+// }
 
 
 // function userToLeaderboard(name, score) {
