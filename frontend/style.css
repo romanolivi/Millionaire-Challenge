@@ -32,6 +32,11 @@
     font-family: sans-serif;
 }
 
+#home-image {
+    width: 500;
+    height: 500;
+}
+
 .table {
     position: absolute;
     width: 500px;
@@ -42,6 +47,10 @@
 
 #win {
     text-align: center;
+    display: none;
+}
+
+.load {
     display: none;
 }
 

@@ -24,6 +24,40 @@ class Questions {
     }
 }
 
+// Header Image 
+
+
+
+
+
+// Leaderboard button
+
+leaderboardButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    updateBoard();
+    game.style.display = 'none'
+    leaderboard.style.display = 'block'
+    signInForm.style.display = 'none'
+    leaderBtn.style.display = 'none'
+    welcomeMessage.style.display = 'none'
+    winLayout.style.display = 'none'
+    homeImage.style.display = 'none'
+})
+
+// Leaderboard after winning 
+let lb2 = document.querySelector('#leaderboard-btn-2');
+lb2.addEventListener('click', (e) => {
+    e.preventDefault();
+    updateBoard();
+    game.style.display = 'none'
+    leaderboard.style.display = 'block'
+    signInForm.style.display = 'none'
+    leaderBtn.style.display = 'none'
+    welcomeMessage.style.display = 'none'
+    winLayout.style.display = 'none'
+    homeImage.style.display = 'none'
+})
+
 // Questions
 let city = new Questions("What is the most populated city in the world?", "Tokyo");
 let moose = new Questions("Which animal is the largest member of the deer family?", "Moose");
@@ -75,7 +109,7 @@ signInButton.addEventListener('click', function(e) {
 
 // sign in function
 
-
+let homeImage = document.querySelector('#home-image');
 const headerTitle = document.querySelector('.header-title');
 let currentUser;
 
@@ -83,20 +117,21 @@ function loggedIn(user) {
     if (user) {
         currentUser = user;
         signInForm.style.display = 'none'
+        homeImage.style.display = 'none'
         leaderBtn.style.display = 'none'
         welcomeMessage.style.display = 'block'
-        headerTitle.innerHTML = `<h1>Welcome, ${currentUser.username}!</h1>`
-
-        gameBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            displayGame(currentUser);
-        })
+        headerTitle.innerHTML = `<h1>Hello, ${currentUser.username}!</h1>`
     } else { 
         signInForm.style.display = 'block'
         leaderBtn.style.display = 'block'
         welcomeMessage.style.display = 'none'
     }
 }
+
+gameBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    displayGame();
+})
 
 // Shuffle Question Array 
 
@@ -125,7 +160,9 @@ function failureScreen() {
     playAgain.addEventListener('click', (e) => {
         e.preventDefault();
         failure.style.display = 'none';
-        displayGame();
+        leaveBtn.style.display = 'block';
+        shuffleArray(questions)
+        display1();
     })
 
     leaveGame.addEventListener('click', (e) => {
@@ -162,18 +199,20 @@ let qq10 = document.querySelector('#question-content-10');
 
 
 // Declaring questions
-const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe];
+const questions = [city, moose, strawberry, europe, eyeballs, feet, finland, india, athena, kobe, ringo, anchorage];
+const game = document.querySelector('#game');
+
 
 function displayGame() {
-    const game = document.querySelector('#game');
     headerTitle.style.display = 'none';
     welcomeMessage.style.display = 'none';
     game.style.display = 'block';
-    shuffleArray(questions);
     display1();
 }
 
+
 function display1() {
+    console.log(score)
     q1.style.display = 'block'
     let content = questions[0].content;
     qq1.textContent = content;
@@ -188,7 +227,7 @@ function display1() {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[0].answer.toLowerCase()) {
-            score += 100000;
+            score = 100000;
             b.textContent = score;
             display2();
         } else {
@@ -201,6 +240,7 @@ function display1() {
 }
 
 function display2() {
+    console.log(score)
     q2.style.display = 'block'
     let content = questions[1].content;
     console.log(content);
@@ -216,7 +256,7 @@ function display2() {
     btn2.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[1].answer.toLowerCase()) {
-            score += 100000;
+            score = 200000;
             b.textContent = score;
             display3();
         } else {
@@ -229,6 +269,7 @@ function display2() {
 }
 
 function display3() {
+    console.log(score)
     q3.style.display = 'block'
     let content = questions[2].content;
     console.log(content);
@@ -244,7 +285,7 @@ function display3() {
     btn3.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[2].answer.toLowerCase()) {
-            score += 100000;
+            score = 300000;
             b.textContent = score;
             display4();
         } else {
@@ -257,6 +298,7 @@ function display3() {
 }
 
 function display4() {
+    console.log(score)
     q4.style.display = 'block'
     let content = questions[3].content;
     console.log(content);
@@ -266,13 +308,14 @@ function display4() {
         if (i === 4) { continue; }
         let q = document.querySelector(`#question-${i}`);
         q.style.display = 'none';
+        
     }
 
     let btn4 = document.querySelector('#answer-button-4');
     btn4.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[3].answer.toLowerCase()) {
-            score += 100000;
+            score = 400000;
             b.textContent = score;
             display5();
         } else {
@@ -300,7 +343,7 @@ function display5() {
     btn5.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[4].answer.toLowerCase()) {
-            score += 100000;
+            score = 500000;
             b.textContent = score;
             display6();
         } else {
@@ -328,7 +371,7 @@ function display6() {
     btn6.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[5].answer.toLowerCase()) {
-            score += 100000;
+            score = 600000;
             b.textContent = score;
             display7();
         } else {
@@ -356,7 +399,7 @@ function display7() {
     btn7.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[6].answer.toLowerCase()) {
-            score += 100000;
+            score = 700000;
             b.textContent = score;
             display8();
         } else {
@@ -384,7 +427,7 @@ function display8() {
     btn8.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[7].answer.toLowerCase()) {
-            score += 100000;
+            score = 800000;
             b.textContent = score;
             display9();
         } else {
@@ -412,7 +455,7 @@ function display9() {
     btn9.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[8].answer.toLowerCase()) {
-            score += 100000;
+            score = 900000;
             b.textContent = score;
             display10();
         } else {
@@ -440,8 +483,8 @@ function display10() {
     btn10.addEventListener('click', (e) => {
         e.preventDefault();
         if (input.value.toLowerCase() === questions[9].answer.toLowerCase()) {
-            score += 100000;
-            b.textContent = score;
+            score = 1000000;
+            b.textContent = score; 
             winner();
         } else {
             score = 0;
@@ -458,7 +501,18 @@ let winLayout = document.querySelector('#win');
 
 // Winner function
 
+let load = document.querySelector('.load');
+
 function winner() {
+    score = 1000000;
+    game.style.display = 'none';
+    winLayout.style.display = 'block';
+    game.style.display = 'none';
+    load.style.display = "block";
+}
+
+load.addEventListener('click', function(e) {
+    e.preventDefault();
     let username = currentUser.username;
     let balance = score;
 
@@ -482,19 +536,47 @@ function winner() {
         console.log(json.data.attributes.balance)
         updateBoard();
     })
+    leaderboard.style.display = 'block'
     game.style.display = 'none';
-    winLayout.style.display = 'block';
-    game.style.display = 'none';
-}
+})
 
-function updateBoard(){
-    fetch(LEADERBOARD_URL)
-        .then((resp) => resp.json())
-        .then(json => {
-            console.log(json.data);
-            sortBoard(json.data);
-        })
-}
+// function winner() {
+//     let username = currentUser.username;
+//     let balance = score;
+
+//     formData = {
+//         username: username,
+//         balance: balance
+//     }
+
+//     configObj = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Accept": "application/json"
+//         },
+//         body: JSON.stringify(formData)
+//     }
+
+//     fetch(LEADERBOARD_URL, configObj)
+//     .then(resp => resp.json())
+//     .then(json => {
+//         console.log(json.data.attributes.balance)
+//         updateBoard();
+//     })
+//     game.style.display = 'none';
+//     winLayout.style.display = 'block';
+//     game.style.display = 'none';
+// }
+
+// function updateBoard(){
+//     fetch(LEADERBOARD_URL)
+//         .then((resp) => resp.json())
+//         .then(json => {
+//             console.log(json.data);
+//             sortBoard(json.data);
+//         })
+// }
 
 // Leave button
 
@@ -554,15 +636,4 @@ function showBoard(sortedData) {
     });
 }
 
-// Leaderboard button
 
-leaderboardButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    updateBoard();
-    game.style.display = 'none'
-    leaderboard.style.display = 'block'
-    signInForm.style.display = 'none'
-    leaderBtn.style.display = 'none'
-    welcomeMessage.style.display = 'none'
-    winLayout.style.display = 'none'
-})
