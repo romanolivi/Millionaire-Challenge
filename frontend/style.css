@@ -37,12 +37,15 @@
     height: 500;
 }
 
+.leaderboard {
+    display: none;
+    text-align: center;
+}
+
 .table {
     position: absolute;
-    width: 500px;
+    width: 40%;
     bottom: 5%;
-    left: 40%;
-    display: none;
 }
 
 #win {
@@ -52,7 +55,13 @@
 
 .load {
     display: none;
+    text-align: center;
 }
+
+.leave {
+    text-align: center;
+}
+
 
 
 

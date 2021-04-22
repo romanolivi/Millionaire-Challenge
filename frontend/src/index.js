@@ -9,7 +9,7 @@ const leaderBtn = document.querySelector('#leader-btn');
 let b = document.querySelector('#balance');
 
 let leaderboardButton = document.querySelector('#leaderboard-btn');
-let leaderboard = document.querySelector('.table');
+let leaderboard = document.querySelector('.leaderboard');
 
 let leaveBtn = document.querySelector('.leave');
 
@@ -45,18 +45,18 @@ leaderboardButton.addEventListener('click', (e) => {
 })
 
 // Leaderboard after winning 
-let lb2 = document.querySelector('#leaderboard-btn-2');
-lb2.addEventListener('click', (e) => {
-    e.preventDefault();
-    updateBoard();
-    game.style.display = 'none'
-    leaderboard.style.display = 'block'
-    signInForm.style.display = 'none'
-    leaderBtn.style.display = 'none'
-    welcomeMessage.style.display = 'none'
-    winLayout.style.display = 'none'
-    homeImage.style.display = 'none'
-})
+// let lb2 = document.querySelector('#leaderboard-btn-2');
+// lb2.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     updateBoard();
+//     game.style.display = 'none'
+//     leaderboard.style.display = 'block'
+//     signInForm.style.display = 'none'
+//     leaderBtn.style.display = 'none'
+//     welcomeMessage.style.display = 'none'
+//     winLayout.style.display = 'none'
+//     homeImage.style.display = 'none'
+// })
 
 // Questions
 let city = new Questions("What is the most populated city in the world?", "Tokyo");
@@ -511,6 +511,7 @@ function winner() {
     load.style.display = "block";
 }
 
+// Load Button - Challenge Completed
 load.addEventListener('click', function(e) {
     e.preventDefault();
     let username = currentUser.username;
@@ -536,49 +537,13 @@ load.addEventListener('click', function(e) {
         console.log(json.data.attributes.balance)
         updateBoard();
     })
+    load.style.display = 'none';
+    winLayout.style.display = 'none'
     leaderboard.style.display = 'block'
     game.style.display = 'none';
 })
 
-// function winner() {
-//     let username = currentUser.username;
-//     let balance = score;
-
-//     formData = {
-//         username: username,
-//         balance: balance
-//     }
-
-//     configObj = {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json"
-//         },
-//         body: JSON.stringify(formData)
-//     }
-
-//     fetch(LEADERBOARD_URL, configObj)
-//     .then(resp => resp.json())
-//     .then(json => {
-//         console.log(json.data.attributes.balance)
-//         updateBoard();
-//     })
-//     game.style.display = 'none';
-//     winLayout.style.display = 'block';
-//     game.style.display = 'none';
-// }
-
-// function updateBoard(){
-//     fetch(LEADERBOARD_URL)
-//         .then((resp) => resp.json())
-//         .then(json => {
-//             console.log(json.data);
-//             sortBoard(json.data);
-//         })
-// }
-
-// Leave button
+// Leave Button
 
 leaveBtn.addEventListener('click', function(e) {
     e.preventDefault();
