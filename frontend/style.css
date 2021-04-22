@@ -1,6 +1,12 @@
 .header-title {
     text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+* {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 
 #content {
     margin-left: auto;
@@ -54,13 +60,19 @@
 }
 
 .load {
+    padding: 15px 30px 14px 30px;
+    margin: 5px auto;
     display: none;
     text-align: center;
+    width: 100px;
 }
-
-.leave {
+ 
+#leave {
+    margin: 5px auto;
+    display: none;
     text-align: center;
-}
+    width: 100px;
+} 
 
 
 

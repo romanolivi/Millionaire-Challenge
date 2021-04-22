@@ -11,7 +11,7 @@ let b = document.querySelector('#balance');
 let leaderboardButton = document.querySelector('#leaderboard-btn');
 let leaderboard = document.querySelector('.leaderboard');
 
-let leaveBtn = document.querySelector('.leave');
+let leaveBtn = document.querySelector('#leave');
 
 // Game button
 const gameBtn = document.querySelector('#start-game');
@@ -27,9 +27,6 @@ class Questions {
 // Header Image 
 
 
-
-
-
 // Leaderboard button
 
 leaderboardButton.addEventListener('click', (e) => {
@@ -43,20 +40,6 @@ leaderboardButton.addEventListener('click', (e) => {
     winLayout.style.display = 'none'
     homeImage.style.display = 'none'
 })
-
-// Leaderboard after winning 
-// let lb2 = document.querySelector('#leaderboard-btn-2');
-// lb2.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     updateBoard();
-//     game.style.display = 'none'
-//     leaderboard.style.display = 'block'
-//     signInForm.style.display = 'none'
-//     leaderBtn.style.display = 'none'
-//     welcomeMessage.style.display = 'none'
-//     winLayout.style.display = 'none'
-//     homeImage.style.display = 'none'
-// })
 
 // Questions
 let city = new Questions("What is the most populated city in the world?", "Tokyo");
@@ -206,6 +189,7 @@ const game = document.querySelector('#game');
 function displayGame() {
     headerTitle.style.display = 'none';
     welcomeMessage.style.display = 'none';
+    leaveBtn.style.display = 'block';
     game.style.display = 'block';
     display1();
 }
@@ -584,8 +568,8 @@ function updateBoard(){
 }
 
 function sortBoard(data) {
-    let sortedData = data.sort(function (a, b) {
-        return b.attributes.balance - a.attributes.balance;
+    let sortedData = data.sort(function (first, second) {
+        return second.attributes.balance - first.attributes.balance;
     });
     showBoard(sortedData)
 }
